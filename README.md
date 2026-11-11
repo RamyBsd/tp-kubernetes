@@ -130,49 +130,41 @@
 ### Incident A — Image introuvable
 
 - Quel état observez-vous ?
->
+> `ErrImagePull` et `ImagePullBackOff`
 
 - Quel événement indique la cause probable ?
->
+> `Failed to pull image <nom-d-image-erroné>`
 
 - Comment corriger le manifeste et vérifier le retour à la normale ?
->
+> corriger le nom de l'image et réappliquer le deploiment `kubectl apply -f k8s/03-deployment.yaml`. le status repasse à `Running`.
 
 
 ### Incident B — Service inaccessible
 
 - Pourquoi le Service n’a-t-il plus de destination exploitable ?
->
+> car aucun pod ne répond au nom erroné.
 
 - Pourquoi les Pods peuvent-ils être opérationnels alors que l’application est inaccessible via le Service ?
->
+> `Deployment` et `Service` étant 2 élements distinct, un pod peut fonctionner tandis qu'aucun service ne permet d'y acceder.
 
 - Quelle correction permet de rétablir le routage ?
->
+> selectionner le bon nom d'app et réappliquer le Service `kubectl apply -f k8s/04-service.yaml`
 
 
 ### Incident C — Sonde de santé incorrecte
 
 - Quel est l’effet d’une readiness probe en échec ?
->
+>* le nouveau pod créé ne passe pas en `Ready`.
+>* les anciens pods ne disparaissent pas.
 
 - En quoi son effet diffère-t-il de celui d’une liveness probe en échec ?
->
-
+>* `readyness probe` ne fait que bloquer le pod l'empêchant d'être deployé tant qu'il n'est pas considéré *prêt*
+>* `liveness probe` redémarre un pod qu'il détermine mort.
 - Pourquoi une sonde mal configurée peut-elle provoquer une indisponibilité ?
->
-
-
----
-
-## 9. Mini-projet de synthèse
-
-- Justifier les choix d’architecture et leurs limites.
-
-#### Analyse des limites d’un cluster local par rapport à un cluster cloud de production
+> un pod fonctionnel mais dont la sonde ne rapporte pas l'état `Ready` ne sera pas exploitable par l'utilisateur.
 
 ---
 
-## 12. Conclusion
+## Conclusion
 
-> En quoi Kubernetes apporte-t-il des mécanismes d’orchestration qui dépassent la simple exécution de conteneurs avec Docker, et quelles précautions restent nécessaires pour exploiter une application de manière fiable en production ?
+> Kubernetes permet par déclarations de deployer une infra entière, de l'entendre au besoin, d'en gérer le cycle de vie de l'ensemble de ses conteneurs, d'en assurer la disponibilité et de vite détecter les points d'echec. le cluster doit cependant être physiquement bien répartis sur plusieurs machines afin d'assurer une haute disponibilité et renforcer la fiabilité de son noeud principal (control plane), et la configuration doit être minucieusement faites pour éviter de court-circuter le cluster de l'interieur.
