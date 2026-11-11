@@ -38,17 +38,17 @@
 
 ## 4. Partie 2 — Déployer une application web
 * Quel intérêt présente un namespace dans un environnement partagé entre plusieurs équipes ?
->
+> isoler le travail de chaque équipe dans son environnement et de ne pas empiéter sur celui des autres.
 
 * Pourquoi utiliser une ConfigMap plutôt que d’intégrer directement la page dans le manifeste du Deployment ?
->
+> séparer le mechanisme de deploiment (`Deployment`) du contenu à deployer (`ConfigMap`).
 
 
 1. Quel est le rôle du Deployment par rapport au ReplicaSet ?
->
+> 
 
 2. Pourquoi ne pas accéder directement aux adresses IP des Pods ?
->
+> en voulant accèder au même service répliqué sur des pods différents, il vaut mieux n'exposer qu'une adresse qui redirigera vers un pod "prêt". si ce pod venait à tomber, le service redirigera vers un replicat. le tout sans exposer plus d'ip que nécessaire.
 
 3. Quelle différence existe-t-il entre `ClusterIP`, `NodePort` et `LoadBalancer` ?
 >
