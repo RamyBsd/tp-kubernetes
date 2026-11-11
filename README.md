@@ -110,17 +110,18 @@
 
 ## 7. Partie 5 — Mise à jour et retour arrière
 1. Que signifie la stratégie `RollingUpdate` ?
->
+> les pods sont mis à jour petit à petit pour éviter tout *down time*.
 
 2. Pourquoi une mise à jour progressive ne garantit-elle pas, à elle seule, une disponibilité parfaite ?
->
+>* sans un nombre suffisant de replica, un endpointslice peut se retrouver sans endpoint disponible.
+>* un utilisateur peut être coupé d'une connexion.
+>* si des fonctionalité de l'ancienne version ne sont pas compatible avec la nouvelle, l'app peut planter pendant la transition.
 
 3. Dans quelles conditions `rollout undo` fonctionne-t-il ?
->
+> `rollout undo` ne fonctionne que si la modification touche le bloc `spec.template`.
 
 4. Pourquoi faut-il versionner les configurations et planifier les migrations de base de données séparément ?
->
-
+> car on veut éviter la perte des données suite à un rollback (réduire au maximum le *Recovery Point Objective*)
 
 ---
 
