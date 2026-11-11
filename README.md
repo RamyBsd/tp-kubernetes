@@ -1,4 +1,5 @@
 # TP - Kubernetes avec Minikube
+# Mohand Said Ramy BOUSSAD
 ## 3. Partie 1 — Explorer l’architecture Kubernetes
 
 **Interpétation**
@@ -38,26 +39,31 @@
 
 ## 4. Partie 2 — Déployer une application web
 * Quel intérêt présente un namespace dans un environnement partagé entre plusieurs équipes ?
-> isoler le travail de chaque équipe dans son environnement et de ne pas empiéter sur celui des autres.
+> * Isoler le travail de chaque équipe dans son environnement et de ne pas empiéter sur celui des autres.
+> * repartition de la puissance de calcule sur chaque namespace. 
 
 * Pourquoi utiliser une ConfigMap plutôt que d’intégrer directement la page dans le manifeste du Deployment ?
 > séparer le mechanisme de deploiment (`Deployment`) du contenu à deployer (`ConfigMap`).
 
 
 1. Quel est le rôle du Deployment par rapport au ReplicaSet ?
-> 
+> `Deployment` assure la gestion du cycle de vie entier des pods, de leur création, à leur mise à jour, à leur rollback, à leur suppression. `ReplicatSet` ne fait que maintenir un nombre de pods voulu dans un état fixe actif.
 
 2. Pourquoi ne pas accéder directement aux adresses IP des Pods ?
-> en voulant accèder au même service répliqué sur des pods différents, il vaut mieux n'exposer qu'une adresse qui redirigera vers un pod "prêt". si ce pod venait à tomber, le service redirigera vers un replicat. le tout sans exposer plus d'ip que nécessaire.
+> En voulant accèder au même service répliqué sur des pods différents, il vaut mieux n'exposer qu'une adresse qui redirigera vers un pod "prêt". si ce pod venait à tomber, le service redirigera vers un replicat. le tout sans exposer plus d'ip que nécessaire.
 
 3. Quelle différence existe-t-il entre `ClusterIP`, `NodePort` et `LoadBalancer` ?
->
+> * `ClusterIP` est un service exposant une IP unique au cluster qui permet la communication entre les composants de ce dernier.
+> * `NodePort` est un service exposant un port pour l'ensemble des noeuds du cluster.
+> * `LoadBalancer` est un service qui acceuil le traffic externe pour l'attribuer de la manière la plus efficace aux composants du cluster.
 
 4. Quelle différence existe-t-il entre une readiness probe et une liveness probe ?
+> `readiness probe` vérifie que le pod est prêt à servir pour l'inclure (ou pas) dans les endpoints l'`endpointslice` 
 >
+> `liveness probe` s'assure qu'un pod exposé est opérationel ou nécessite un redémarrage.
 
 5. Que peut-il se passer si une limite mémoire est trop basse ?
->
+> Le service est tué et n'est plus disponible. il sera redémarré/remplacé
 
 
 ---
@@ -65,19 +71,21 @@
 ## 5. Partie 3 — Résilience et auto-rétablissement
 
 1. Pourquoi le Pod supprimé est-il remplacé ?
->
+> afin de satisfaire la condition `replicas: 2` de `k8s/03-deployment.yaml`.
 
 2. Quelle différence existe-t-il entre la suppression d’un Pod et l’arrêt d’un processus dans un conteneur ?
->
+>* à la suppression d’un pod, c'est ReplicaSet qui se charge de le remettre en route
+>* à l’arrêt d’un processus dans un conteneur, c'est le kubelet du noeud qui se charge de redémarrer dans le même pod.
 
 3. Pourquoi un redémarrage de conteneur ne signifie-t-il pas nécessairement que le cluster entier est en panne ?
->
+> car ce conteneur est normalement repliqué pour eviter toute panne de service.
 
 4. Que se passerait-il si le nœud unique de Minikube devenait indisponible ?
->
+> le cluster s'effondre sur lui même. un redémarrage manuel est nécessaire
 
 5. Pourquoi un cluster local à un seul nœud ne permet-il pas de démontrer la tolérance à la panne d’un nœud physique ?
->
+>* car il contient l'orchestrateur qui gère cette tolèrence. s'il est HS, pas de redémarrage.
+>* sans autre noeud Worker fonctionel, le Control Plane ne peut relancer les services nulle part.
 
 
 ---
@@ -85,16 +93,17 @@
 ## 6. Partie 4 — Mise à l’échelle et découverte de services
 
 1. Quelle différence existe-t-il entre la mise à l’échelle manuelle et l’autoscaling ?
->
+>* l’échelle manuelle maintient la replication à une valeur fixe.
+>* l'autoscaling fait varier la replication selon la demande.
 
 2. Quel est le rôle d’un Horizontal Pod Autoscaler (HPA) ?
->
+> gérer la replication d'un pod sur le même cluster.
 
 3. Pourquoi un HPA basé sur le CPU nécessite-t-il des métriques et des ressources correctement configurées ?
->
+> car c'est ainsi qu'il pourra calculer l'empreinte CPU et ajuster l'autoscaling en conséquence.
 
 4. Pourquoi quatre réplicas sur un seul nœud ne garantissent-ils pas la disponibilité en cas de panne de ce nœud ?
->
+> car ils sont tous sur la même machine physique. pour de la haute diponibilité, il faudrait repartir les réplicas sur des noeuds différents. 
 
 
 ---
