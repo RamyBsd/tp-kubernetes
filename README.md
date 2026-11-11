@@ -3,35 +3,35 @@
 
 **Interpétation**
 * `kubectl get nodes -o wide`
->
+> liste tout les noeuds du cluster et leur état. Ici, seul le noeud orchestrateur et pour l'instant actif et "prêt".
 
 * `kubectl get namespaces`
->
+> liste les differents environnements isolés du cluster
 
 * `kubectl get pods -A`
->
+> liste les pods à l'image d'un `docker ps`
 
 * `kubectl get deployments -A`
->
+> liste l'ensemble des contrôleur deployment du cluster. Pour l'instant, seul coredns est actif.
 
 * `kubectl describe node`
->
+> fait un rapport détaillé de l'état d'un noeud.
 
 
 1. Quel est le rôle du control plane ?
->
+> il est l'orchestarteur des noeuds "worker": verifie qu'ils sont opérationels et leur repartis les tâches à éxecuter
 
 2. Quelle différence existe-t-il entre un nœud Kubernetes et un Pod ?
->
+> le noeud est la machine qui fournit la puissance de calcule et hénérge un ensemble de pods qui exploite cette puissance pour executer des tâches
 
 3. Quel contrôleur maintient le nombre de réplicas demandé par un Deployment ?
 >
 
 4. Quelle différence existe-t-il entre un conteneur et un Pod ?
->
+> un pod peut contenir plusieurs conteneurs qui partages les mêmes propritées réseau et mémoire.
 
 5. Quelles limites présente un cluster local à un seul nœud par rapport à un cluster de production ?
->
+> un cluster de production est réparti sur plusieurs noeuds afin de proposer une tolérence au panne. à l'inverse, un cluster local à un seul nœud représente un SPOF (single point of failure). le monolithe se voit aussi très vite limité en terme de CPU et RAM.
 
 
 ---

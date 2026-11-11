@@ -1,0 +1,37 @@
+<mxfile host="65bd71144e">
+    <diagram id="ShF9zSejlpTyUBQI8b5j" name="Page-1">
+        <mxGraphModel dx="293" dy="261" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="4" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="30" y="10" width="470" height="360" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="4">
+                    <mxGeometry y="30" width="470" height="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Minikube" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="4">
+                    <mxGeometry x="205" width="70" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="" style="group" vertex="1" connectable="0" parent="4">
+                    <mxGeometry x="20" y="50" width="200" height="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="8">
+                    <mxGeometry y="34.8" width="200" height="255.2" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="Controle Plane" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="8">
+                    <mxGeometry x="41.66666666666666" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="scheduler" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="8">
+                    <mxGeometry x="41.66333333333333" y="55.07000000000001" width="110" height="37.73" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="controller-manager" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="8">
+                    <mxGeometry x="41.66333333333333" y="110" width="110" height="37.73" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="etcd" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="8">
+                    <mxGeometry x="41.66333333333333" y="170" width="110" height="37.73" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
